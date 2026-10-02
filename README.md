@@ -1,95 +1,95 @@
 # 🔎 ResearchAgentPy
 
-A **local AI research agent** built with Python and Ollama.
+**A local AI-powered research agent built with Python, LangChain, and Ollama.**
 
-Give it a topic, and the agent searches **Wikipedia** and **DuckDuckGo**, generates a research summary with **inline citations and references**, streams the response live, and saves the result as a `.txt` or `.md` file.
+ResearchAgentPy is an AI research assistant that automatically searches the web, collects information from multiple sources, and generates structured research summaries with inline citations and references.
 
-Everything runs locally using **Ollama**, so no paid API is required.
+Powered by **Ollama**, it runs language models locally without requiring paid LLM APIs.
+
+Use it through a command-line interface or an interactive Streamlit web application. Research results can be streamed in real time and exported as Markdown or text files.
 
 ---
 
 ## 🚀 Features
 
-* 🔍 **Web Research** — Searches Wikipedia and DuckDuckGo
-* 📚 **Real Citations** — Generates `[1]`-style citations from retrieved sources
-* 📑 **References** — Automatically creates a numbered references list
-* ⚡ **Live Streaming** — Displays research progress and generated content in real time
-* 🤖 **Local AI** — Runs using Ollama and locally installed models
-* 🛡️ **Safety Net** — Performs direct searches if the model fails to use its research tools
-* 🌐 **Multiple Languages** — Generate summaries in different languages
-* 📏 **Length Control** — `short`, `medium`, or `long`
-* 📦 **Batch Mode** — Research multiple topics from a text file
-* 💻 **CLI Interface** — Use the agent directly from the terminal
-* 🌐 **Streamlit Web App** — Interactive browser-based interface
-* 📥 **Export** — Save results as `.txt` or `.md`
-* 🕘 **History** — Access previously generated research
-* 🩺 **Health Checks** — Detects Ollama/model availability
-* 🧪 **Testing & CI** — Unit tests and GitHub Actions CI
+* 🔍 **Web Research:** Search Wikipedia and DuckDuckGo for relevant information.
+* 📚 **Source-Based Citations:** Generate numbered inline citations using retrieved sources.
+* 📑 **Automatic References:** Create a numbered reference list with source URLs.
+* ⚡ **Live Streaming:** View research progress and generated content in real time.
+* 🤖 **Local AI:** Run language models locally using Ollama.
+* 🛡️ **Fallback Search:** Perform direct searches when the agent fails to use its research tools successfully.
+* 🌐 **Multilingual Output:** Generate research summaries in different languages.
+* 📏 **Customizable Length:** Choose between short, medium, and long summaries.
+* 📦 **Batch Research:** Process multiple research topics from a text file.
+* 💻 **CLI Interface:** Run research tasks directly from the terminal.
+* 🌐 **Streamlit Web App:** Access an interactive browser-based interface.
+* 📥 **Export Options:** Save research results as `.txt` or `.md` files.
+* 🕘 **Research History:** Access previously generated research.
+* 🩺 **Health Checks:** Check Ollama connectivity and model availability.
+* 🧪 **Automated Testing:** Run unit tests and GitHub Actions CI workflows.
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Python 3.10+**
-* **Ollama**
-* **LangChain**
-* **Streamlit**
-* **Wikipedia**
-* **DuckDuckGo**
-* **Pytest**
-* **GitHub Actions**
+| Technology     | Purpose                                  |
+| -------------- | ---------------------------------------- |
+| Python 3.10+   | Core programming language                |
+| Ollama         | Local LLM inference                      |
+| LangChain      | Agent orchestration and tool integration |
+| Streamlit      | Interactive web interface                |
+| Wikipedia      | Research and information retrieval       |
+| DuckDuckGo     | Web search                               |
+| Pytest         | Automated testing                        |
+| GitHub Actions | Continuous integration                   |
 
 ---
 
 ## 🧠 How It Works
 
-```text
-                    Research Topic
-                          │
-                          ▼
-              ┌─────────────────────┐
-              │   Research Agent    │
-              │    CLI / Web App    │
-              └──────────┬──────────┘
-                         │
-                         ▼
-                Check Ollama + Model
-                         │
-                         ▼
-              ┌─────────────────────┐
-              │   LangChain Agent   │
-              │    Ollama LLM       │
-              └──────────┬──────────┘
-                         │
-                ┌────────┴────────┐
-                ▼                 ▼
-          Wikipedia          DuckDuckGo
-            Search              Search
-                │                 │
-                └────────┬────────┘
-                         ▼
-                  Retrieved Sources
-                         │
-                         ▼
-                  Generate Summary
-                         │
-                         ▼
-                 Clean Citations
-                         │
-                         ▼
-                 Add References
-                         │
-                  ┌──────┴──────┐
-                  ▼             ▼
-                .txt           .md
+The research agent follows a structured workflow to collect information and generate research summaries.
+
+```mermaid
+flowchart TD
+    A["Research Topic"] --> B["CLI / Streamlit Web App"]
+    B --> C["Check Ollama and Model"]
+    C --> D["LangChain Research Agent"]
+    D --> E["Ollama LLM"]
+    E --> F{"Use Research Tools"}
+    F --> G["Wikipedia Search"]
+    F --> H["DuckDuckGo Search"]
+    G --> I["Retrieved Sources"]
+    H --> I
+    F --> J["Fallback Search"]
+    J --> I
+    I --> K["Generate Research Summary"]
+    K --> L["Process Citations"]
+    L --> M["Build References"]
+    M --> N["Stream and Display Results"]
+    N --> O["Export .txt / .md"]
 ```
 
-### Citation System
+### Workflow
 
-Sources are recorded by the application itself.
+1. **Topic Input:** Enter a research topic through the CLI or Streamlit application.
+2. **Health Check:** Verify Ollama connectivity and model availability.
+3. **Agent Execution:** The LangChain agent processes the research request using the configured Ollama model.
+4. **Information Retrieval:** Search Wikipedia and DuckDuckGo through the available research tools.
+5. **Fallback Search:** Perform direct searches if the agent fails to retrieve information through its tools.
+6. **Summary Generation:** Generate a research summary using the collected information.
+7. **Citation Processing:** Associate citations with retrieved sources and prepare a numbered reference list.
+8. **Live Streaming:** Display generated content and research progress.
+9. **Export:** Save the completed research as a `.txt` or `.md` file.
+
+### 📚 Citation System
+
+The application maintains a list of retrieved sources and uses them to generate numbered citations in the research output.
+
+**Example:**
 
 ```text
-Quantum computing uses qubits [1].
+Quantum computing uses quantum-mechanical
+properties such as superposition and entanglement [1].
 
 References:
 
@@ -97,9 +97,9 @@ References:
    https://en.wikipedia.org/wiki/Quantum_computing
 ```
 
-The citation numbers come from the **actual pages retrieved by the tools**, rather than allowing the model to freely invent references.
+Citation numbers are associated with sources retrieved by the application rather than being generated as arbitrary reference URLs.
 
-> Citations indicate which sources the summary relied on; they do not guarantee that every generated claim is correct. Important information should still be verified against the original sources.
+> **Note:** Citations indicate the sources used during research. They do not guarantee that every generated claim is accurate or directly supported by the cited source. Always verify important information against the original references.
 
 ---
 
@@ -144,34 +144,62 @@ ResearchAgentPy/
 └── README.md
 ```
 
+### Key Components
+
+| File / Directory              | Description                                  |
+| ----------------------------- | -------------------------------------------- |
+| `research_agent/agent.py`     | Core research agent and generation workflow  |
+| `research_agent/tools.py`     | Search and research tools                    |
+| `research_agent/citations.py` | Citation processing and reference generation |
+| `research_agent/storage.py`   | Research result storage and history          |
+| `research_agent/health.py`    | Ollama and model health checks               |
+| `research_agent/config.py`    | Application configuration                    |
+| `research_agent/cli.py`       | Command-line interface                       |
+| `research_agent/web.py`       | Web-related application functionality        |
+| `app.py`                      | Streamlit application entry point            |
+| `main.py`                     | Additional application entry point           |
+| `tests/`                      | Automated unit tests                         |
+| `.github/workflows/ci.yml`    | GitHub Actions CI configuration              |
+| `outputs/`                    | Directory for generated research files       |
+| `pyproject.toml`              | Python project and package configuration     |
+| `requirements.txt`            | Python dependencies                          |
+| `.env.example`                | Example environment configuration            |
+
 ---
 
 ## ⚙️ Requirements
 
-Before running the project, install:
+Before installing the project, ensure the following are available:
 
-* Python **3.10+**
-* [Ollama](https://ollama.com)
-* An Ollama model with tool-calling support
+* **Python:** 3.10 or newer
+* **Ollama:** Installed and running
+* **Ollama Model:** A model compatible with the agent's tool-calling configuration
+* **Internet Connection:** Required for Wikipedia and DuckDuckGo research
+
+Download Ollama from its official website:
+
+https://ollama.com/
 
 ---
 
 ## 📥 Installation
 
-### 1. Clone the repository
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/ResearchAgentPy.git
-cd ResearchAgentPy
+git clone https://github.com/goutam-vg/Research_oO.git
+cd Research_oO
 ```
 
-### 2. Create a virtual environment
+### 2. Create a Virtual Environment
 
-**Windows:**
+A virtual environment keeps project dependencies isolated.
+
+**Windows (PowerShell):**
 
 ```powershell
 python -m venv .venv
-.venv\Scripts\activate
+.venv\Scripts\Activate.ps1
 ```
 
 **Linux / macOS:**
@@ -181,18 +209,22 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Install dependencies
+### 3. Install Dependencies
+
+Install the required Python packages:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Configure environment variables
+### 4. Configure Environment Variables
+
+Create a local `.env` file using the provided example.
 
 **Windows:**
 
 ```powershell
-copy .env.example .env
+Copy-Item .env.example .env
 ```
 
 **Linux / macOS:**
@@ -201,29 +233,37 @@ copy .env.example .env
 cp .env.example .env
 ```
 
-### 5. Pull an Ollama model
+Update the environment variables if necessary.
+
+### 5. Install an Ollama Model
+
+For example, download Qwen3 8B:
 
 ```bash
 ollama pull qwen3:8b
 ```
 
-Make sure Ollama is running.
+Make sure Ollama is running and the selected model is available before launching the application.
 
 ---
 
 ## 💻 CLI Usage
 
+The command-line interface allows you to perform research directly from your terminal.
+
+### Basic Usage
+
 ```bash
 python -m research_agent "Quantum computing"
 ```
 
-Or install the project:
+You can also install the package in editable mode:
 
 ```bash
 pip install -e .
 ```
 
-Then:
+After installation, use the `research-agent` command:
 
 ```bash
 research-agent "Quantum computing"
@@ -231,145 +271,230 @@ research-agent "Quantum computing"
 
 ### Examples
 
+**1. Basic Research**
+
 ```bash
 research-agent "Quantum computing"
 ```
+
+**2. Generate a Long Summary**
 
 ```bash
 research-agent "Black holes" --length long
 ```
 
+**3. Export Results as Markdown**
+
 ```bash
 research-agent "Black holes" --format md
 ```
+
+**4. Generate Research in Another Language**
 
 ```bash
 research-agent "Climate change" --lang Spanish
 ```
 
+**5. Research Multiple Topics**
+
+Create a text file named `topics.txt`:
+
+```text
+Quantum computing
+Artificial intelligence
+Renewable energy
+Black holes
+```
+
+Run batch research:
+
 ```bash
 research-agent --file topics.txt
-
+```
 
 ---
 
-## 🌐 Web App
+## 🌐 Streamlit Web Application
 
-Start the Streamlit application:
+The project also includes an interactive web interface built with Streamlit.
+
+### Launch the Application
 
 ```bash
 streamlit run app.py
 ```
 
-The web application provides:
+Open the local URL displayed in your terminal to access the application.
 
-* Model selection
-* Research length selection
-* Language selection
-* Topic input
-* Live research output
-* Research history
-* `.txt` downloads
-* `.md` downloads
+### Web App Features
+
+* **Model Selection:** Choose the Ollama model for research.
+* **Research Length:** Select short, medium, or long summaries.
+* **Language Selection:** Generate output in your preferred language.
+* **Topic Input:** Enter the subject you want to research.
+* **Live Output:** Follow research progress and generated content.
+* **Research History:** Access previously generated research.
+* **Download Results:** Export summaries as `.txt` or `.md` files.
 
 ---
 
 ## 📋 CLI Options
 
-| Option               | Default        | Description                  |
-| -------------------- | -------------- | ---------------------------- |
-| `topic`              | Prompt         | Topic to research            |
-| `-f`, `--file`       | —              | Text file containing topics  |
-| `-m`, `--model`      | `OLLAMA_MODEL` | Ollama model                 |
-| `-l`, `--length`     | `medium`       | `short`, `medium`, or `long` |
-| `--lang`             | `English`      | Output language              |
-| `--format`           | `txt`          | `txt` or `md`                |
-| `-o`, `--output-dir` | `outputs`      | Output directory             |
+The following table describes the command-line options exposed by the application.
+
+| Option               | Default                            | Description                                  |
+| -------------------- | ---------------------------------- | -------------------------------------------- |
+| `topic`              | Required for single-topic research | Research topic                               |
+| `-f`, `--file`       | None                               | Text file containing multiple topics         |
+| `-m`, `--model`      | `OLLAMA_MODEL`                     | Ollama model to use                          |
+| `-l`, `--length`     | `medium`                           | Summary length: `short`, `medium`, or `long` |
+| `--lang`             | `English`                          | Output language                              |
+| `--format`           | `txt`                              | Output format: `txt` or `md`                 |
+| `-o`, `--output-dir` | `outputs`                          | Directory for generated files                |
+
+**Note:** The defaults and option behavior should match the argument definitions in `research_agent/cli.py`.
 
 ---
 
 ## 🔧 Configuration
 
+The application uses environment variables for model selection and runtime configuration.
+
 Create a `.env` file based on `.env.example`.
 
-| Variable             | Default                  | Description               |
-| -------------------- | ------------------------ | ------------------------- |
-| `OLLAMA_MODEL`       | `qwen3:8b`               | Ollama model              |
-| `OLLAMA_BASE_URL`    | `http://localhost:11434` | Ollama server             |
-| `OLLAMA_KEEP_ALIVE`  | `30m`                    | Model keep-alive duration |
-| `OLLAMA_REASONING`   | `false`                  | Enable model reasoning    |
-| `OLLAMA_NUM_PREDICT` | Per length               | Maximum summary tokens    |
+### Environment Variables
+
+| Variable             | Default                  | Description                                     |
+| -------------------- | ------------------------ | ----------------------------------------------- |
+| `OLLAMA_MODEL`       | `qwen3:8b`               | Default Ollama model                            |
+| `OLLAMA_BASE_URL`    | `http://localhost:11434` | Ollama server address                           |
+| `OLLAMA_KEEP_ALIVE`  | `30m`                    | Duration the model stays loaded                 |
+| `OLLAMA_REASONING`   | `false`                  | Enable or disable model reasoning, if supported |
+| `OLLAMA_NUM_PREDICT` | Per length               | Maximum number of generated tokens              |
 
 ### Summary Token Limits
 
-```text
-short   → 500 tokens
-medium  → 1000 tokens
-long    → 1800 tokens
-```
+The application uses different token limits depending on the selected research length.
+
+| Length | Maximum Tokens |
+| ------ | -------------: |
+| Short  |            500 |
+| Medium |           1000 |
+| Long   |           1800 |
+
+These values control generation length and do not guarantee a particular word count.
 
 ---
 
 ## 🧪 Testing
 
-The project includes unit tests that do not require network access or a running Ollama server.
+The project includes automated unit tests for core functionality.
+
+The tests are designed to run without requiring a live Ollama server or network access, using test fixtures and mocks where appropriate.
+
+### Run the Test Suite
 
 ```bash
 python -m pytest
 ```
 
-CI runs the test suite using Python **3.10** and **3.12**.
+### Continuous Integration
+
+The repository includes a GitHub Actions workflow for automated testing.
+
+The configured CI workflow runs tests using:
+
+* Python 3.10
+* Python 3.12
+
+This helps verify compatibility across the configured Python versions.
 
 ---
 
 ## 🛠️ Troubleshooting
 
-### Ollama cannot be reached
+### 1. Ollama Cannot Be Reached
+
+Make sure Ollama is running.
 
 ```bash
 ollama serve
 ```
 
-### Model is not installed
+If Ollama is already running as a background service, you may not need to execute this command.
+
+Check the installed models:
+
+```bash
+ollama list
+```
+
+### 2. Model Is Not Installed
+
+Download the required model:
 
 ```bash
 ollama pull qwen3:8b
 ```
 
-### First response is slow
+Ensure the configured model name matches an installed model.
 
-Ollama may be loading the model into memory. The `OLLAMA_KEEP_ALIVE` setting controls how long the model remains loaded.
+### 3. First Response Is Slow
 
-### No references are generated
+The first response may take longer because Ollama needs to load the model into memory.
 
-If both Wikipedia and DuckDuckGo are unreachable, the agent may not have sources available.
+The `OLLAMA_KEEP_ALIVE` setting controls how long the model remains loaded after use.
 
-### Weak research results
+### 4. No References Are Generated
 
-Try a larger or more capable Ollama model.
+Check the availability of the research sources.
+
+If Wikipedia and DuckDuckGo are unreachable, the agent may not have enough retrieved information to generate references.
+
+### 5. Weak Research Results
+
+Research quality depends on the selected model, available sources, retrieved information, and generation settings.
+
+Consider trying a larger or more capable Ollama model if your hardware can support it.
+
+### 6. Python Dependency Errors
+
+Ensure the virtual environment is activated and install the dependencies again:
+
+```bash
+pip install -r requirements.txt
+```
+
+If problems persist, verify that the active Python version meets the project's requirements.
 
 ---
 
 ## 🔮 Roadmap
 
-* [ ] Follow-up questions about research results
+Potential future improvements include:
+
+* [ ] Follow-up questions about previously generated research
 * [ ] PDF export
-* [ ] Deeper page-reading tool
+* [ ] Deeper webpage-reading and information extraction
 * [ ] Docker support
-* [ ] More research sources
-* [ ] Improved multi-step research
+* [ ] Additional research sources
+* [ ] Improved multi-step research workflows
+
+These are planned enhancements and are not necessarily available in the current implementation.
 
 ---
 
 ## 🙏 Acknowledgements
 
-This project was **inspired by and developed with reference to the work and tutorials of Tech With Tim**.
+This project was inspired by and developed with reference to the educational content and tutorials of **Tech With Tim**.
 
-Special thanks to **Tim Ruscica (Tech With Tim)** for his educational content and practical guidance around Python, AI agents, and building AI-powered applications.
+Special thanks to **Tim Ruscica (Tech With Tim)** for his tutorials and practical guidance on Python, AI agents, and AI-powered applications.
 
-This repository contains my **own implementation, modifications, and extensions** built from that learning process.
+This repository contains my own implementation, modifications, and extensions developed through that learning process.
 
-You can find more of Tim's work on [Tech With Tim](https://www.youtube.com/@TechWithTim).
+Explore more of his work:
+
+[Tech With Tim — YouTube](https://www.youtube.com/@TechWithTim)
 
 ---
 
@@ -377,7 +502,7 @@ You can find more of Tim's work on [Tech With Tim](https://www.youtube.com/@Tech
 
 This project is licensed under the **MIT License**.
 
-See [LICENSE](LICENSE) for details.
+See the [LICENSE](https://github.com/goutam-vg/Research_oO/blob/main/LICENSE) file for details.
 
 ---
 
@@ -385,4 +510,12 @@ See [LICENSE](LICENSE) for details.
 
 **Goutam VG**
 
-Built as a local AI research agent using Python, LangChain, and Ollama.
+A local AI research agent built using Python, LangChain, and Ollama.
+
+**GitHub:** [@goutam-vg](https://github.com/goutam-vg)
+
+**Repository:** [Research_oO](https://github.com/goutam-vg/Research_oO)
+
+---
+
+
